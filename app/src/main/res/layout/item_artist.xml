@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="72dp">
+    
+    <ImageView
+        android:src="@drawable/circle"
+        android:padding="16dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp" />
+
+    <LinearLayout
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:textSize="16sp"
+            android:text="Modest Mouse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            style="@style/Base.TextAppearance.AppCompat.Caption"
+            android:text="14 albums"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

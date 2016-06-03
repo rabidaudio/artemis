@@ -14,11 +14,14 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import audio.rabid.artemis.models.Track;
+
 /**
  * Created by  charles  on 6/3/16.
  */
 
-public class MediaPlayerService extends Service implements AudioManager.OnAudioFocusChangeListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
+public class MediaPlayerService extends Service implements AudioManager.OnAudioFocusChangeListener,
+        MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
 
     MediaPlayer mediaPlayer;
     AudioManager audioManager;
