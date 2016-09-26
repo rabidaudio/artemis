@@ -14,7 +14,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ui.ArtistsActivity"
             android:label="@string/app_name"
@@ -25,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.AlbumsActivity"
             android:parentActivityName=".ui.ArtistsActivity"
@@ -42,7 +40,6 @@
                 android:value="audio.rabid.artemis.ui.AlbumsActivity" />
         </activity>
 
-
         <receiver android:name=".MusicIntentReceiver">
             <intent-filter>
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
@@ -53,7 +50,9 @@
             android:name=".MediaPlayerService"
             android:enabled="true"
             android:exported="false" />
-
+        <service
+            android:name=".LoadMediaService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

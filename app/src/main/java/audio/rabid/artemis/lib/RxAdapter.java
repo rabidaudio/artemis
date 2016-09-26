@@ -1,6 +1,7 @@
-package audio.rabid.artemis;
+package audio.rabid.artemis.lib;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
@@ -15,7 +16,7 @@ import rx.Observer;
 /**
  * Created by  charles  on 9/25/16.
  */
-public abstract class RxAdapter<T, H extends ViewHolderArrayAdapter.ViewHolder<T>> extends ViewHolderArrayAdapter<T, H> implements Observer<Collection<T>> {
+public abstract class RxAdapter<T, H extends ViewHolder<T>> extends ViewHolderArrayAdapter<T, H> implements Observer<Collection<T>> {
 
     public RxAdapter(Context context, int resourceId) {
         super(context, resourceId, new ArrayList<>());
@@ -25,7 +26,6 @@ public abstract class RxAdapter<T, H extends ViewHolderArrayAdapter.ViewHolder<T
     public void onNext(Collection<T> ts) {
         clear();
         addAll(ts);
-//        notifyDataSetChanged();
     }
 
     @Override

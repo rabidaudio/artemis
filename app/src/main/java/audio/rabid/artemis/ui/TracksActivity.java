@@ -10,12 +10,13 @@ import android.widget.ListView;
 
 import audio.rabid.artemis.ArtemisActivity;
 import audio.rabid.artemis.R;
-import audio.rabid.artemis.RxAdapter;
+import audio.rabid.artemis.lib.RxAdapter;
 import audio.rabid.artemis.models.Album;
 import audio.rabid.artemis.models.Track;
 import audio.rabid.artemis.ui.binders.TrackBinder;
 import butterknife.BindView;
 import io.realm.Realm;
+import rx.Observable;
 
 public class TracksActivity extends ArtemisActivity {
 
@@ -46,7 +47,18 @@ public class TracksActivity extends ArtemisActivity {
             setTitle(getString(R.string.tracks));
         }else{
             getDisposeBag().add(Track.getForAlbum(albumId).subscribe(tracksAdapter));
-            setTitle(Realm.getDefaultInstance().where(Album.class).equalTo("id", albumId).findFirst().getName());
+
+            Observable<Album> album = Realm.getDefaultInstance()
+                    .where(Album.class)
+                    .equalTo("id", albumId)
+                    .findFirstAsync()
+                    .asObservable()
+                    .filter(rr -> rr.isLoaded())
+                    .cast(Album.class);
+
+            getDisposeBag().add(
+                    album.map(Album::getName).subscribe(this::setTitle)
+            );
         }
     }
 

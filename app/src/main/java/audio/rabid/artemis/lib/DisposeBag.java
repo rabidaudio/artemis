@@ -1,4 +1,4 @@
-package audio.rabid.artemis;
+package audio.rabid.artemis.lib;
 
 import java.util.ArrayList;
 import java.util.List;

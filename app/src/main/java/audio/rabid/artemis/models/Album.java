@@ -21,9 +21,9 @@ public class Album extends RealmObject {
 
     private String name;
 
-    private int year;
+    private String sortName;
 
-    private String artUrl;
+    private int year;
 
     public int getYear() {
         return year;
@@ -42,7 +42,7 @@ public class Album extends RealmObject {
     }
 
     public String getArtUrl(){
-        return artUrl;
+        return null;
     }
 
     public long getTrackCount(){

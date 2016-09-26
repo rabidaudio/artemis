@@ -12,7 +12,7 @@ import com.jakewharton.rxbinding.widget.RxAdapterView;
 
 import audio.rabid.artemis.ArtemisActivity;
 import audio.rabid.artemis.R;
-import audio.rabid.artemis.RxAdapter;
+import audio.rabid.artemis.lib.RxAdapter;
 import audio.rabid.artemis.models.Album;
 import audio.rabid.artemis.models.Artist;
 import audio.rabid.artemis.ui.binders.AlbumBinder;

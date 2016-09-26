@@ -6,10 +6,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import audio.rabid.artemis.R;
-import audio.rabid.artemis.ViewHolderArrayAdapter;
+import audio.rabid.artemis.lib.ViewHolder;
 import audio.rabid.artemis.models.Album;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import rapid.decoder.BitmapDecoder;
 import rapid.decoder.binder.Effect;
 import rapid.decoder.binder.ImageViewBinder;
@@ -18,7 +17,7 @@ import rapid.decoder.binder.ViewBinder;
 /**
  * Created by  charles  on 9/25/16.
  */
-public class AlbumBinder implements ViewHolderArrayAdapter.ViewHolder<Album> {
+public class AlbumBinder extends ViewHolder<Album> {
 
     @BindView(R.id.name)
     TextView name;
@@ -35,7 +34,7 @@ public class AlbumBinder implements ViewHolderArrayAdapter.ViewHolder<Album> {
     ViewBinder<ImageView> viewBinder;
 
     public AlbumBinder(View v){
-        ButterKnife.bind(this, v);
+        super(v);
         ImageViewBinder.obtain(art).effect(Effect.FADE_IN);
     }
 

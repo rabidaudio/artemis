@@ -1,4 +1,4 @@
-package audio.rabid.artemis;
+package audio.rabid.artemis.lib;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by  charles  on 9/25/16.
  */
-public abstract class ViewHolderArrayAdapter<T, H extends ViewHolderArrayAdapter.ViewHolder<T>> extends ArrayAdapter<T> {
+public abstract class ViewHolderArrayAdapter<T, H extends ViewHolder<T>> extends ArrayAdapter<T> {
 
     private int resourceId;
 
@@ -22,6 +22,7 @@ public abstract class ViewHolderArrayAdapter<T, H extends ViewHolderArrayAdapter
 
     public abstract H getHolder(View v);
 
+    @SuppressWarnings("unchecked")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v;
@@ -39,9 +40,5 @@ public abstract class ViewHolderArrayAdapter<T, H extends ViewHolderArrayAdapter
         holder.bind(getItem(position), getContext());
 
         return v;
-    }
-
-    public interface ViewHolder<T> {
-        void bind(T item, Context context);
     }
 }

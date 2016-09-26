@@ -7,7 +7,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import audio.rabid.artemis.R;
-import audio.rabid.artemis.ViewHolderArrayAdapter;
+import audio.rabid.artemis.lib.ViewHolder;
 import audio.rabid.artemis.models.Track;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 /**
  * Created by  charles  on 9/25/16.
  */
-public class TrackBinder implements ViewHolderArrayAdapter.ViewHolder<Track> {
+public class TrackBinder extends ViewHolder<Track> {
 
     @BindView(R.id.name)
     TextView name;
@@ -23,8 +23,8 @@ public class TrackBinder implements ViewHolderArrayAdapter.ViewHolder<Track> {
     @BindView(R.id.length)
     TextView length;
 
-    public TrackBinder(View v){
-        ButterKnife.bind(this, v);
+    public TrackBinder(View v) {
+        super(v);
     }
 
     @Override

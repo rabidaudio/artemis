@@ -94,6 +94,17 @@ public class MediaPlayerService extends Service implements AudioManager.OnAudioF
 
     // mediaPlayer.setNextMediaPlayer();
 
+
+            /*
+        Uri contentUri = ContentUris.withAppendedId(
+                android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
+
+        mMediaPlayer = new MediaPlayer();
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mMediaPlayer.setDataSource(getApplicationContext(), contentUri);
+         */
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();

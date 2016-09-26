@@ -1,5 +1,6 @@
 package audio.rabid.artemis.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.Menu;
@@ -10,8 +11,9 @@ import android.widget.ListView;
 import com.jakewharton.rxbinding.widget.RxAdapterView;
 
 import audio.rabid.artemis.ArtemisActivity;
+import audio.rabid.artemis.LoadMediaService;
 import audio.rabid.artemis.R;
-import audio.rabid.artemis.RxAdapter;
+import audio.rabid.artemis.lib.RxAdapter;
 import audio.rabid.artemis.models.Artist;
 import audio.rabid.artemis.ui.binders.ArtistBinder;
 import butterknife.BindView;
@@ -32,8 +34,6 @@ public class ArtistsActivity extends ArtemisActivity {
 
         setTitle(getString(R.string.artists));
 
-//        MediaContainer.getPermissions(this);
-
         ArtistAdapter artistAdapter = new ArtistAdapter();
         artistList.setAdapter(artistAdapter);
 
@@ -42,6 +42,20 @@ public class ArtistsActivity extends ArtemisActivity {
                 RxAdapterView.itemClicks(artistList).map(artistAdapter::getItem)
                         .subscribe(a -> AlbumsActivity.launchForArtist(this, a))
         );
+
+        LoadMediaService.start(this, 99);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 99:
+                if(resultCode == RESULT_OK){
+                    LoadMediaService.start(this, 99);
+                }
+                break;
+        }
     }
 
     @Override

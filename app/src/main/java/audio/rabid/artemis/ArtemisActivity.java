@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import audio.rabid.artemis.lib.DisposeBag;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

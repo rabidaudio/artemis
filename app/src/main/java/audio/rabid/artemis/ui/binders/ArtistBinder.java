@@ -7,15 +7,14 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import audio.rabid.artemis.R;
-import audio.rabid.artemis.ViewHolderArrayAdapter;
+import audio.rabid.artemis.lib.ViewHolder;
 import audio.rabid.artemis.models.Artist;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by  charles  on 9/25/16.
  */
-public class ArtistBinder implements ViewHolderArrayAdapter.ViewHolder<Artist> {
+public class ArtistBinder extends ViewHolder<Artist> {
 
     @BindView(R.id.name)
     TextView name;
@@ -24,7 +23,7 @@ public class ArtistBinder implements ViewHolderArrayAdapter.ViewHolder<Artist> {
     TextView albums;
 
     public ArtistBinder(View v){
-        ButterKnife.bind(this, v);
+        super(v);
     }
 
     @Override

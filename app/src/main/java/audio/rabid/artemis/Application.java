@@ -32,10 +32,9 @@ public class Application extends android.app.Application {
 
         Realm.setDefaultConfiguration(new RealmConfiguration.Builder(this)
                 .deleteRealmIfMigrationNeeded()
-//                .initialData(this::loadTestData)
                 .build());
 
-        Realm.getDefaultInstance().executeTransaction(this::loadTestData);
+//        Realm.getDefaultInstance().executeTransaction(this::loadTestData);
     }
 
     private void loadTestData(Realm realm){

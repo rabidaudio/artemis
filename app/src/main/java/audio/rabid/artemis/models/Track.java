@@ -2,6 +2,8 @@ package audio.rabid.artemis.models;
 
 import android.net.Uri;
 
+import java.util.Date;
+
 import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
@@ -24,10 +26,11 @@ public class Track extends RealmObject {
     private Artist artist;
     private Album album;
     private String title;
+    private String titleKey;
     private long length;
-
-    @Required
     private String uri;
+    private Date dateAdded;
+    private Date dateModified;
 
     public long getId() {
         return id;
