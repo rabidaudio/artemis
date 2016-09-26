@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Artemis</string>
     <string name="action_settings">Settings</string>
+
+    <!-- TODO pluralize -->
+    <string name="n_albums">%d Albums</string>
+    <string name="n_tracks">%d Tracks</string>
+    <string name="artists">Artists</string>
+    <string name="albums">Albums</string>
+    <string name="tracks">Tracks</string>
 </resources>

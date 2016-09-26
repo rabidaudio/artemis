@@ -1,39 +1,52 @@
 package audio.rabid.artemis.ui;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
+import android.view.View;
 import android.widget.ListView;
 
-import java.util.List;
+import com.jakewharton.rxbinding.widget.RxAdapterView;
 
+import audio.rabid.artemis.ArtemisActivity;
 import audio.rabid.artemis.R;
+import audio.rabid.artemis.RxAdapter;
 import audio.rabid.artemis.models.Artist;
+import audio.rabid.artemis.ui.binders.ArtistBinder;
+import butterknife.BindView;
 
-public class ArtistsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ArtistsActivity extends ArtemisActivity {
+
+    @BindView(R.id.artist_list)
+    ListView artistList;
+
+    @Override
+    public void prepareContentView() {
+        setContentView(R.layout.activity_artists);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_artists);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(this);
+        setTitle(getString(R.string.artists));
 
-        ListView listView = (ListView) findViewById(R.id.artist_list);
+//        MediaContainer.getPermissions(this);
+
+        ArtistAdapter artistAdapter = new ArtistAdapter();
+        artistList.setAdapter(artistAdapter);
+
+        getDisposeBag().addAll(
+                Artist.getAllBySortName().subscribe(artistAdapter),
+                RxAdapterView.itemClicks(artistList).map(artistAdapter::getItem)
+                        .subscribe(a -> AlbumsActivity.launchForArtist(this, a))
+        );
+    }
+
+    @Override
+    public void onFabClick(FloatingActionButton fab) {
+
     }
 
     @Override
@@ -59,39 +72,21 @@ public class ArtistsActivity extends AppCompatActivity implements View.OnClickLi
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View v) {
-        // handle FAB
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//
+//    }
+
+    private class ArtistAdapter extends RxAdapter<Artist,ArtistBinder> {
+        public ArtistAdapter() {
+            super(ArtistsActivity.this, R.layout.item_artist);
+        }
+
+        @Override
+        public ArtistBinder getHolder(View v) {
+            return new ArtistBinder(v);
+        }
     }
 }
-
-
-/*
-ContentResolver contentResolver = getContentResolver();
-Uri uri = android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-Cursor cursor = contentResolver.query(uri, null, null, null, null);
-if (cursor == null) {
-    // query failed, handle error.
-} else if (!cursor.moveToFirst()) {
-    // no media on the device
-} else {
-    int titleColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media.TITLE);
-    int idColumn = cursor.getColumnIndex(android.provider.MediaStore.Audio.Media._ID);
-    do {
-       long thisId = cursor.getLong(idColumn);
-       String thisTitle = cursor.getString(titleColumn);
-       // ...process entry...
-    } while (cursor.moveToNext());
-}
-To use this with the MediaPlayer, you can do this:
-
-long id = // retrieve it from somewhere
-Uri contentUri = ContentUris.withAppendedId(
-        android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
-
-        mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mMediaPlayer.setDataSource(getApplicationContext(), contentUri);
-
-// ...prepare and start...
-* */

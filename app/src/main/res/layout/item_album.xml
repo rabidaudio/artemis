@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="72dp">
-    
+    android:layout_height="112dp">
+
     <ImageView
-        android:src="@drawable/circle"
+        android:id="@+id/art"
+        android:src="@drawable/ss"
         android:padding="16dp"
-        android:layout_width="72dp"
-        android:layout_height="72dp" />
+        android:layout_width="112dp"
+        android:layout_height="112dp" />
 
     <LinearLayout
         android:layout_gravity="center_vertical"
@@ -23,14 +24,21 @@
             android:id="@+id/name"
             style="@style/Base.TextAppearance.AppCompat.Subhead"
             android:textSize="16sp"
-            tools:text="Modest Mouse"
+            tools:text="Summer Sun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/albums"
+            android:id="@+id/year"
             style="@style/Base.TextAppearance.AppCompat.Caption"
-            tools:text="14 albums"
+            tools:text="2004"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tracks"
+            style="@style/Base.TextAppearance.AppCompat.Caption"
+            tools:text="14 Tracks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
