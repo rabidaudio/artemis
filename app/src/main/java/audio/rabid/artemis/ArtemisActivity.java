@@ -39,6 +39,7 @@ public abstract class ArtemisActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
+        // TODO not the same as back
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if(collapsingToolbarLayout != null) {

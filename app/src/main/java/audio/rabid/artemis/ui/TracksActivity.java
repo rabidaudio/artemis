@@ -44,7 +44,6 @@ public class TracksActivity extends ArtemisActivity {
 
         if(albumId == -1){
             getDisposeBag().add(Track.getAllByTitle().subscribe(tracksAdapter));
-            setTitle(getString(R.string.tracks));
         }else{
             getDisposeBag().add(Track.getForAlbum(albumId).subscribe(tracksAdapter));
 

@@ -5,7 +5,14 @@
     <!-- TODO pluralize -->
     <string name="n_albums">%d Albums</string>
     <string name="n_tracks">%d Tracks</string>
-    <string name="artists">Artists</string>
-    <string name="albums">Albums</string>
-    <string name="tracks">Tracks</string>
+
+    <string name="artists_activity_title">Artists</string>
+    <string name="albums_activity_title">Albums</string>
+    <string name="tracks_activity_title">Tracks</string>
+
+    <string name="permission_primer_title">Allow us to access your music</string>
+    <string name="permission_primer_message">We need to access your files to be able to play your content</string>
+    <string name="permission_primer_ok">OK</string>
+    <string name="permission_primer_cancel">Cancel</string>
+
 </resources>

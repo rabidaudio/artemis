@@ -9,7 +9,6 @@ import io.realm.RealmObject;
 import io.realm.RealmResults;
 import io.realm.Sort;
 import io.realm.annotations.PrimaryKey;
-import io.realm.annotations.Required;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 

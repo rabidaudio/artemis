@@ -5,9 +5,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.IntentService;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -43,7 +42,6 @@ public class LoadMediaService extends IntentService {
 
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
 
-//        context.grantUriPermission("com.android.providers.media.MediaProvider", uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
         Cursor cursor = null;
         try {
             cursor = cr.query(uri, null, null, null, null);
@@ -55,7 +53,7 @@ public class LoadMediaService extends IntentService {
                 try {
                     JSONArray tracks = new JSONArray();
                     do {
-                        boolean isMusic = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.IS_MUSIC)) > 0;
+                        boolean isMusic = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.IS_MUSIC)) != 0;
                         if(isMusic) {
                             tracks.put(createTrackJSONFromCursor(cursor));
                         }
@@ -75,48 +73,6 @@ public class LoadMediaService extends IntentService {
             }
         }
     }
-
-
-
-                    /*
-
-    int FIELD_TYPE_BLOB = 4;
-    int FIELD_TYPE_FLOAT = 2;
-    int FIELD_TYPE_INTEGER = 1;
-    int FIELD_TYPE_NULL = 0;
-    int FIELD_TYPE_STRING = 3;
-
-09-26 01:55:25.163 7205-7372/audio.rabid.dev.artemis.debug D/Asdf: track: 71237 : Almost Here
-09-26 01:55:25.163 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 0: _id -> 1
-09-26 01:55:25.163 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 1: _data -> 3
-09-26 01:55:25.163 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 2: _display_name -> 3
-09-26 01:55:25.163 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 3: _size -> 1
-09-26 01:55:25.163 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 4: mime_type -> 3
-09-26 01:55:25.163 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 5: date_added -> 1
-09-26 01:55:25.163 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 6: is_drm -> 1
-09-26 01:55:25.163 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 7: date_modified -> 1
-09-26 01:55:25.163 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 8: title -> 3
-09-26 01:55:25.163 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 9: title_key -> 3
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 10: duration -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 11: artist_id -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 12: composer -> 3
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 13: album_id -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 14: track -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 15: year -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 16: is_ringtone -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 17: is_music -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 18: is_alarm -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 19: is_notification -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 20: is_podcast -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 21: bookmark -> 0
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 22: album_artist -> 3
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 23: artist_id:1 -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 24: artist_key -> 3
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 25: artist -> 3
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 26: album_id:1 -> 1
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 27: album_key -> 3
-09-26 01:55:25.164 7205-7372/audio.rabid.dev.artemis.debug D/asdf: column 28: album -> 3
-                 */
 
     private static JSONObject createTrackJSONFromCursor(Cursor cursor) throws JSONException {
         JSONObject artist = new JSONObject()
@@ -145,23 +101,18 @@ public class LoadMediaService extends IntentService {
     }
 
 
-    public static boolean getPermissions(final Activity context, int permissionRequestCode){
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(context,
-                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+    private static boolean getPermissions(final Activity context, int permissionRequestCode){
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            new AlertDialog.Builder(context)
+                    .setTitle(R.string.permission_primer_title)
+                    .setMessage(R.string.permission_primer_message)
+                    .setPositiveButton(R.string.permission_primer_ok, (dialog, which) -> {
+                        ActivityCompat.requestPermissions(context,
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, permissionRequestCode);
+                    })
+                    .setNegativeButton(R.string.permission_primer_cancel, null)
+                    .create().show();
 
-                new AlertDialog.Builder(context)
-                        .setTitle("Allow us to access your music")
-                        .setMessage("We need to access your files to be able to play your content")
-                        .setPositiveButton("OK", (dialog, which) -> getPermissions(context, permissionRequestCode))
-                        .setNegativeButton("Cancel", null)
-                        .create().show();
-
-            } else {
-                ActivityCompat.requestPermissions(context,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, permissionRequestCode);
-            }
             return false;
         }else{
             return true;

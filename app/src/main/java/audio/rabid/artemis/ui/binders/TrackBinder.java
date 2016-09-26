@@ -10,7 +10,6 @@ import audio.rabid.artemis.R;
 import audio.rabid.artemis.lib.ViewHolder;
 import audio.rabid.artemis.models.Track;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by  charles  on 9/25/16.

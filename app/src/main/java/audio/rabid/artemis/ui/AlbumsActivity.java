@@ -18,6 +18,7 @@ import audio.rabid.artemis.models.Artist;
 import audio.rabid.artemis.ui.binders.AlbumBinder;
 import butterknife.BindView;
 import io.realm.Realm;
+import rx.Observable;
 
 public class AlbumsActivity extends ArtemisActivity {
 
@@ -46,12 +47,22 @@ public class AlbumsActivity extends ArtemisActivity {
             getDisposeBag().add(
                     Album.getAllByYear().subscribe(albumAdapter)
             );
-            setTitle(getString(R.string.albums));
         }else{
             getDisposeBag().add(
                     Album.getByYearForArtist(artistId).subscribe(albumAdapter)
             );
-            setTitle(Realm.getDefaultInstance().where(Artist.class).equalTo("id", artistId).findFirst().getName());
+
+            Observable<Artist> artist = Realm.getDefaultInstance()
+                    .where(Artist.class)
+                    .equalTo("id", artistId)
+                    .findFirstAsync()
+                    .asObservable()
+                    .filter(r -> r.isLoaded())
+                    .cast(Artist.class);
+
+            getDisposeBag().add(
+                    artist.map(Artist::getName).subscribe(this::setTitle)
+            );
         }
 
         getDisposeBag().add(

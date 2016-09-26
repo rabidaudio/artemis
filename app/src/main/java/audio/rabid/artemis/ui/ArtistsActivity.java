@@ -32,8 +32,6 @@ public class ArtistsActivity extends ArtemisActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle(getString(R.string.artists));
-
         ArtistAdapter artistAdapter = new ArtistAdapter();
         artistList.setAdapter(artistAdapter);
 
